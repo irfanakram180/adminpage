@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dastkaar</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .logo img {
+            width: 250px;
+        }
+     
+        
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            padding: 10px;
+            text-align: center;
+        }
+        .sidebar ul li button {
+            color: white;
+            background-color: #d40606; /* Red background color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 214px;
+        }
+        
+        .sidebar ul li button:hover {
+            background-color: #b10000; /* Darker shade of red on hover */
+        }
+        .sidebar ul li a {
+            color: blue;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            transition: background-color 0.3s ease;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: rgb(250, 40, 3);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .charts {
+            background-color: #fff;
+            
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Settings Section */
+        .settings {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .setting-option {
+            margin-bottom: 20px;
+        }
+
+        .setting-option label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .setting-option input[type="text"],
+        .setting-option input[type="file"] {
+            width: calc(50% - 16px);
+            padding: 8px;
+            border: 1px solid #d40606;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            
+        }
+
+        .setting-option button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .setting-option button:hover {
+            background-color: #45a049;
+        }
+       #theme{   width: 15%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 5px;}
+        /* Theme Styles */
+        .light-theme {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .dark-theme {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .blue-theme {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .green-theme {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .purple-theme {
+            background-color: #6f42c1;
+            color: #fff;
+        }
+       
+        .yellow-theme{ background-color: yellow;
+        color: black;}
+        .chartreuse-theme{ background-color: chartreuse; color: black;}
+        .orange-theme{ background-color: darkgoldenrod;}
+        
+        #language {
+            width: 15%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+    
+        /* Optional: Style the options within the dropdown */
+        #language option {
+            padding: 8px;
+        }
+         .apply-settings-button {
+        padding: 10px 20px;
+        background-color: red;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .apply-settings-button:hover {
+        background-color: #0056b3;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/Untitled-1.jpg" alt="Logo">
+        </div>
+        
+        <ul>
+            <li><a href="#" class="sidebar-link" data-section="dashboard">Dashboard</a></li>
+            <li><a href="#" class="sidebar-link" data-section="tailorJamal">Tailor Jamal</a></li>
+            <li><a href="#" class="sidebar-link" data-section="tailorAzam">Tailor Azam</a></li>
+            <li><a href="#" class="sidebar-link" data-section="tailorIrfan">Tailor umair</a></li>
+            <li><a href="#" class="sidebar-link" data-section="notifications">Notifications</a></li>
+            <li><a href="#" class="sidebar-link" data-section="messages">Messages</a></li>
+            <li><a href="#" class="sidebar-link" data-section="tracking">Tracking</a></li>
+            <li><a href="#" class="sidebar-link" data-section="bank transaction">Bank transaction</a></li>
+            <li><a href="#" class="sidebar-link" data-section="settings">Settings</a></li>
+            <li><button onclick="logout()" class="logout-button">Logout</button></li>
+          
+        </ul>
+       
+    
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h2>Welcome, Admin!</h2>
+        </div>
+        <div id="dashboard" class="section-content active">
+          
+            <div class="charts">
+                <canvas id="dashboardChart"></canvas>
+            </div>
+        </div>
+        <div id="settings" class="section-content">
+            <h3>Settings</h3>
+            <div class="setting-option">
+                <label for="theme">Change Theme</label>
+                <select id="theme" onchange="changeTheme()">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="chartreuse">Chartreuse</option>
+                    <option value="orange">Orange</option>
+                </select>
+            </div>
+            <div class="setting-option">
+                <label for="language">Choose Language:</label>
+                <select id="language" onchange="loadLanguage(this.value)">
+                    <option value="english">English</option>
+                    <option value="urdu">Urdu</option>
+                </select>
+            </div>
+            <div class="setting-option">
+                <label for="appName">Update Application Name:</label>
+                <input type="text" id="appName" placeholder="Enter new application name">
+            </div>
+            <div class="setting-option">
+                <label for="logo">Update Logo:</label>
+                <input type="file" id="logo">
+            </div>
+            <button onclick="applySettings()" class="apply-settings-button">Apply Settings</button>
+
+        </div>
+        <div id="notifications" class="section-content">
+            <h3>Notifications</h3>
+            <p>Here are the notifications...</p>
+        </div>
+        <div id="messages" class="section-content">
+            <h3>Messages</h3>
+            <p>Here are the messages...</p>
+        </div>
+        <div id="tracking" class="section-content">
+            <h3>Tracking</h3>
+            <p>Here is the tracking...</p>
+        </div>
+        <div id="tailorJamal" class="section-content">
+            <h3>Tailor Jamal</h3>
+            <p>Here is the content for Tailor Jamal...</p>
+        </div>
+        <div id="tailorAzam" class="section-content">
+            <h3>Tailor Azam</h3>
+            <p>Here is the content for Tailor Azam...</p>
+        </div>
+        <div id="tailorIrfan" class="section-content">
+            <h3>Tailor Irfan</h3>
+            <p>Here is the content for Tailor Irfan...</p>
+        </div>
+      
+    </div>
+    <script>
+        function logout() {
+            // Redirect to login page
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <script>
+
+        // JavaScript code for logout functionality
+document.addEventListener("DOMContentLoaded", function() {
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            // Redirect to the login page when logout button is clicked
+            window.location.href = "login.html"; // Change "login.html" to the path of your login page
+        });
+    }
+});
+
+    </script>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // JavaScript code
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const sectionContents = document.querySelectorAll('.section-content');
+
+            sidebarLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+
+                    // Hide all section contents
+                    sectionContents.forEach(function(section) {
+                        section.classList.remove('active');
+                    });
+
+                    // Show the clicked section content
+                    const targetSection = document.getElementById(sectionId);
+                    targetSection.classList.add('active');
+                });
+            });
+
+            // Create a dummy chart for the dashboard
+            const dashboardChart = new Chart(document.getElementById('dashboardChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [500, 700, 600, 800, 750, 900, 1000],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Function to calculate and update totals
+            function updateTotals() {
+                const perPantCells = document.querySelectorAll('#tailorJamalTableBody td:nth-child(4)');
+                const perJacketCells = document.querySelectorAll('#tailorJamalTableBody td:nth-child(5)');
+                let totalPerPant = 0;
+                let totalPerJacket = 0;
+
+                perPantCells.forEach(cell => {
+                    totalPerPant += parseFloat(cell.textContent.replace('$', ''));
+                });
+
+                perJacketCells.forEach(cell => {
+                    totalPerJacket += parseFloat(cell.textContent.replace('$', ''));
+                });
+
+                document.getElementById('totalPerPant').textContent = '$' + totalPerPant.toFixed(2);
+                document.getElementById('totalPerJacket').textContent = '$' + totalPerJacket.toFixed(2);
+            }
+
+            // Example of how data can be filled dynamically
+            const tailorJamilTableBody = document.getElementById('tailorJamalTableBody');
+            // Assuming you have a form with ID 'tailorJamilForm'
+            const form = document.getElementById('tailorJamilForm');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const newRow = document.createElement('tr');
+
+                newRow.innerHTML = `
+                    <td>${formData.get('date')}</td>
+                    <td>${formData.get('tailor')}</td>
+                    <td>${formData.get('orderId')}</td>
+                    <td>$${formData.get('perPant')}</td>
+                    <td>$${formData.get('perJacket')}</td>
+                `;
+
+                tailorJamilTableBody.appendChild(newRow);
+                updateTotals();
+
+                // Reset form fields
+                form.reset();
+            });
+        });
+    </script>
+
+    <script>
+        function applySettings() {
+            const selectedTheme = document.getElementById('theme').value;
+            const selectedLanguage = document.getElementById('language').value;
+            const updatedAppName = document.getElementById('appName').value;
+            const updatedLogo = document.getElementById('logo').files[0]; // Assuming single file upload
+    
+            // Apply settings
+            alert("Settings applied successfully!");
+            
+            // Update application name if changed
+            if (updatedAppName) {
+                document.querySelector('.header h2').textContent = updatedAppName;
+            }
+    
+            // Update logo if changed
+            if (updatedLogo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.logo img').src = e.target.result;
+                }
+                reader.readAsDataURL(updatedLogo);
+            }
+        }
+    
+        function changeTheme() {
+            const selectedTheme = document.getElementById('theme').value;
+            document.body.className = selectedTheme + "-theme"; // Set the body's class to selected theme
+        }
+
+// Function to apply the selected theme
+function applyTheme(theme) {
+    document.body.className = theme + "-theme";
+    // Store the selected theme preference in localStorage
+    localStorage.setItem("theme", theme);
+}
+
+// Function to handle theme change
+function changeTheme() {
+    const selectedTheme = document.getElementById('theme').value;
+    applyTheme(selectedTheme);
+}
+
+// Function to load the theme preference from localStorage on page load
+function loadTheme() {
+    const theme = localStorage.getItem("theme");
+    if (theme) {
+        applyTheme(theme);
+    }
+}
+
+// Call loadTheme() when the page loads
+window.onload = loadTheme;
+
+// Call loadAppName() when the page loads
+window.onload = loadAppName;
+
+    // JavaScript code for managing browser history
+    if (performance.navigation.type == 2) {
+        // User is navigating back
+        history.forward();
+    }
+    </script>
+   
+   
+    
+
+
+</body>
+</html>
